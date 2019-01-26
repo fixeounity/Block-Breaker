@@ -13,7 +13,8 @@ public class Block : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collisionCount > 2)
+        collisionCount++;
+        if (collisionCount > 2)
         {
             Destroy(gameObject);
         }
@@ -25,6 +26,5 @@ public class Block : MonoBehaviour {
         {
             GetComponent<SpriteRenderer>().sprite = broken2;
         }
-        collisionCount++;
     }
 }

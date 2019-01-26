@@ -7,6 +7,7 @@ public class Block : MonoBehaviour {
     // assign when changing state
     [SerializeField] Sprite broken1;
     [SerializeField] Sprite broken2;
+    [SerializeField] AudioClip breakSound;
 
     // states
     private int collisionCount = 0;
@@ -14,6 +15,7 @@ public class Block : MonoBehaviour {
     private void OnCollisionEnter2D(Collision2D collision)
     {
         collisionCount++;
+        AudioSource.PlayClipAtPoint(breakSound, Camera.main.transform.position);
         if (collisionCount > 2)
         {
             Destroy(gameObject);

@@ -63,7 +63,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 0
 --- !u!58 &58740866745374900
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -186,7 +186,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   paddle1: {fileID: 0}
-  launchVelocity: {x: 2, y: 15}
+  launchVelocity: {x: 2, y: 10}
   ballSounds:
   - {fileID: 8300000, guid: f066b80a2315a4141b7542300bc3deaf, type: 3}
   - {fileID: 8300000, guid: f9dff72213f3b2e4e9cb587bdcd4544f, type: 3}

@@ -5,14 +5,15 @@ using UnityEngine;
 public class Block : MonoBehaviour
 {
 
-    // assign when changing state
+    // Config params
     [SerializeField] Sprite broken1;
     [SerializeField] Sprite broken2;
     [SerializeField] AudioClip breakSound;
     [SerializeField] GameObject blockSparklesVFX;
+    [SerializeField] int maxHits = 3;
 
     // states
-    private int collisionCount = 0;
+    [SerializeField] int timesHit = 0;
 
     // Cached references
     private Level currentLevel;
@@ -51,21 +52,28 @@ public class Block : MonoBehaviour
         Destroy(sparkles, 2f);
     }
 
+    private void HandleHit()
+    {
+        timesHit++;
+        if (timesHit == 1)
+        {
+            GetComponent<SpriteRenderer>().sprite = broken1;
+        }
+        else if (timesHit == 2)
+        {
+            GetComponent<SpriteRenderer>().sprite = broken2;
+        }
+        else if (timesHit >= maxHits)
+        {
+            DestroyBlock();
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (tag == "Breakable")
         {
-            collisionCount++;
-            DestroyBlock();
+            HandleHit();
         }
-
-        //else if(collisionCount == 1)
-        //{
-        //    GetComponent<SpriteRenderer>().sprite = broken1;
-        //}
-        //else if (collisionCount == 2)
-        //{
-        //    GetComponent<SpriteRenderer>().sprite = broken2;
-        //}
     }
 }

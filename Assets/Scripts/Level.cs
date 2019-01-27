@@ -9,7 +9,7 @@ public class Level : MonoBehaviour {
     // States
     [SerializeField] int blockCount = 0;
 
-    public void RegisterBlock()
+    public void CountBreakableBlocks()
     {
         blockCount++;
     }

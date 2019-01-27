@@ -23,8 +23,10 @@ public class Block : MonoBehaviour
         // Init cached references for multiple uses
         currentLevel = FindObjectOfType<Level>();
         gameStatus = FindObjectOfType<GameSession>();
-
-        currentLevel.RegisterBlock();
+        if (tag == "Breakable")
+        {
+            currentLevel.CountBreakableBlocks();
+        }
     }
 
     private void PlayBreakABlock()
@@ -51,8 +53,11 @@ public class Block : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        collisionCount++;
-        DestroyBlock();
+        if (tag == "Breakable")
+        {
+            collisionCount++;
+            DestroyBlock();
+        }
 
         //else if(collisionCount == 1)
         //{

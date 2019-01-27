@@ -9,6 +9,7 @@ public class Block : MonoBehaviour
     [SerializeField] Sprite broken1;
     [SerializeField] Sprite broken2;
     [SerializeField] AudioClip breakSound;
+    [SerializeField] GameObject blockSparklesVFX;
 
     // states
     private int collisionCount = 0;
@@ -26,12 +27,26 @@ public class Block : MonoBehaviour
         currentLevel.RegisterBlock();
     }
 
-    private void DestroyBlock()
+    private void PlayBreakABlock()
     {
         AudioSource.PlayClipAtPoint(breakSound, Camera.main.transform.position);
         currentLevel.BreakABlock();
         gameStatus.AddToScore();
+    }
+
+    private void DestroyBlock()
+    {
+        PlayBreakABlock();
+
+        TriggerSparklesVFX();
+
         Destroy(gameObject);
+    }
+
+    private void TriggerSparklesVFX()
+    {
+        GameObject sparkles = Instantiate(blockSparklesVFX, transform.position, transform.rotation);
+        Destroy(sparkles, 2f);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

@@ -81,8 +81,7 @@ MonoBehaviour:
   broken1: {fileID: 21300000, guid: 7da838b25bf03a945903d27822d28f8a, type: 3}
   broken2: {fileID: 21300000, guid: e9880049d6169ac4d961d94ab6406974, type: 3}
   breakSound: {fileID: 8300000, guid: bb6830fb0a16ab14f95f7a6447a8b4c0, type: 3}
-  currentLevel: {fileID: 114842570632584366, guid: 1eb7020b035741c4995ae2f31bfe2c43,
-    type: 2}
+  blockSparklesVFX: {fileID: 100000, guid: 7d846c02296ef4dc4abff04ce3e5262c, type: 2}
 --- !u!212 &212538330491417584
 SpriteRenderer:
   m_ObjectHideFlags: 1

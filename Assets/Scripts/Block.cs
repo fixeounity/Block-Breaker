@@ -15,13 +15,13 @@ public class Block : MonoBehaviour
 
     // Cached references
     private Level currentLevel;
-    private GameStatus gameStatus;
+    private GameSession gameStatus;
 
     private void Start()
     {
         // Init cached references for multiple uses
         currentLevel = FindObjectOfType<Level>();
-        gameStatus = FindObjectOfType<GameStatus>();
+        gameStatus = FindObjectOfType<GameSession>();
 
         currentLevel.RegisterBlock();
     }

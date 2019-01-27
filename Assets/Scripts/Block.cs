@@ -6,8 +6,7 @@ public class Block : MonoBehaviour
 {
 
     // Config params
-    [SerializeField] Sprite broken1;
-    [SerializeField] Sprite broken2;
+    [SerializeField] Sprite[] hitSprites;
     [SerializeField] AudioClip breakSound;
     [SerializeField] GameObject blockSparklesVFX;
     [SerializeField] int maxHits = 3;
@@ -55,18 +54,20 @@ public class Block : MonoBehaviour
     private void HandleHit()
     {
         timesHit++;
-        if (timesHit == 1)
-        {
-            GetComponent<SpriteRenderer>().sprite = broken1;
-        }
-        else if (timesHit == 2)
-        {
-            GetComponent<SpriteRenderer>().sprite = broken2;
-        }
-        else if (timesHit >= maxHits)
+        if (timesHit >= maxHits)
         {
             DestroyBlock();
         }
+        else
+        {
+            ShowNextHitSprite();
+        }
+    }
+
+    private void ShowNextHitSprite()
+    {
+        int spriteIndex = timesHit - 1;
+        GetComponent<SpriteRenderer>().sprite = hitSprites[spriteIndex];
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

@@ -15,10 +15,14 @@ public class Block : MonoBehaviour
 
     // Cached references
     private Level currentLevel;
+    private GameStatus gameStatus;
 
     private void Start()
     {
+        // Init cached references for multiple uses
         currentLevel = FindObjectOfType<Level>();
+        gameStatus = FindObjectOfType<GameStatus>();
+
         currentLevel.RegisterBlock();
     }
 
@@ -26,6 +30,7 @@ public class Block : MonoBehaviour
     {
         AudioSource.PlayClipAtPoint(breakSound, Camera.main.transform.position);
         currentLevel.BreakABlock();
+        gameStatus.AddToScore();
         Destroy(gameObject);
     }
 

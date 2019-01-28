@@ -38,6 +38,8 @@ public class GameSession : MonoBehaviour {
         UpdateScoreText();
     }
 
+
+
     // Update is called once per frame
     void Update () {
         Time.timeScale = gameSpeed;

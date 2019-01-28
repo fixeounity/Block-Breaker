@@ -78,14 +78,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb7026e23122671499c340da2011a446, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitSprites:
-  - {fileID: 21300000, guid: 7da838b25bf03a945903d27822d28f8a, type: 3}
-  - {fileID: 21300000, guid: e9880049d6169ac4d961d94ab6406974, type: 3}
-  broken1: {fileID: 21300000, guid: 7da838b25bf03a945903d27822d28f8a, type: 3}
-  broken2: {fileID: 21300000, guid: e9880049d6169ac4d961d94ab6406974, type: 3}
+  hitSprites: []
   breakSound: {fileID: 8300000, guid: bb6830fb0a16ab14f95f7a6447a8b4c0, type: 3}
   blockSparklesVFX: {fileID: 100000, guid: 7d846c02296ef4dc4abff04ce3e5262c, type: 2}
-  maxHits: 3
   timesHit: 0
 --- !u!212 &212538330491417584
 SpriteRenderer:
@@ -122,7 +117,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7da838b25bf03a945903d27822d28f8a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e9880049d6169ac4d961d94ab6406974, type: 3}
   m_Color: {r: 0.7264151, g: 0.22957456, b: 0.54382414, a: 1}
   m_FlipX: 0
   m_FlipY: 0

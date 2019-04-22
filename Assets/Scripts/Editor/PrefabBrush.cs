@@ -7,34 +7,22 @@ namespace UnityEditor
 {
     [CreateAssetMenu(fileName = "Prefab brush", menuName = "Brushes/Prefab brush")]
     [CustomGridBrush(false, true, false, "Prefab Brush")]
-    public class PrefabBrush : GridBrush
+    public class PrefabBrush : GridBrushBase
     {
         private const float k_PerlinOffset = 100000f;
         public GameObject[] m_Prefabs;
         public float m_PerlinScale = 0.5f;
         public int m_Z;
-        private GameObject prev_brushTarget;
-        private Vector3Int prev_position;
 
         public override void Paint(GridLayout grid, GameObject brushTarget, Vector3Int position)
         {
-            if (position == prev_position)
-                    {
-                        return;
-                    }
-                    prev_position = position;
-            if (brushTarget) {
-                prev_brushTarget = brushTarget;
-            }
-            brushTarget = prev_brushTarget;
-
             // Do not allow editing palettes
             if (brushTarget.layer == 31)
                 return;
 
-            int index = Mathf.Clamp(Mathf.FloorToInt(GetPerlinValue(position, m_PerlinScale, k_PerlinOffset)*m_Prefabs.Length), 0, m_Prefabs.Length - 1);
+            int index = Mathf.Clamp(Mathf.FloorToInt(GetPerlinValue(position, m_PerlinScale, k_PerlinOffset) * m_Prefabs.Length), 0, m_Prefabs.Length - 1);
             GameObject prefab = m_Prefabs[index];
-            GameObject instance = (GameObject) PrefabUtility.InstantiatePrefab(prefab);
+            GameObject instance = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
             if (instance != null)
             {
                 Undo.MoveGameObjectToScene(instance, brushTarget.scene, "Paint Prefabs");
@@ -46,11 +34,6 @@ namespace UnityEditor
 
         public override void Erase(GridLayout grid, GameObject brushTarget, Vector3Int position)
         {
-            if (brushTarget)
-                    {
-                        prev_brushTarget = brushTarget;
-                    }
-                    brushTarget = prev_brushTarget;
             // Do not allow editing palettes
             if (brushTarget.layer == 31)
                 return;
@@ -65,7 +48,7 @@ namespace UnityEditor
             int childCount = parent.childCount;
             Vector3 min = grid.LocalToWorld(grid.CellToLocalInterpolated(position));
             Vector3 max = grid.LocalToWorld(grid.CellToLocalInterpolated(position + Vector3Int.one));
-            Bounds bounds = new Bounds((max + min)*.5f, max - min);
+            Bounds bounds = new Bounds((max + min) * .5f, max - min);
 
             for (int i = 0; i < childCount; i++)
             {
@@ -78,21 +61,20 @@ namespace UnityEditor
 
         private static float GetPerlinValue(Vector3Int position, float scale, float offset)
         {
-            return Mathf.PerlinNoise((position.x + offset)*scale, (position.y + offset)*scale);
+            return Mathf.PerlinNoise((position.x + offset) * scale, (position.y + offset) * scale);
         }
     }
 
     [CustomEditor(typeof(PrefabBrush))]
-    public class PrefabBrushEditor : GridBrushEditor
+    public class PrefabBrushEditor : GridBrushEditorBase
     {
         private PrefabBrush prefabBrush { get { return target as PrefabBrush; } }
 
         private SerializedProperty m_Prefabs;
         private SerializedObject m_SerializedObject;
 
-        protected override void OnEnable()
+        protected void OnEnable()
         {
-            base.OnEnable();
             m_SerializedObject = new SerializedObject(target);
             m_Prefabs = m_SerializedObject.FindProperty("m_Prefabs");
         }
@@ -102,7 +84,7 @@ namespace UnityEditor
             m_SerializedObject.UpdateIfRequiredOrScript();
             prefabBrush.m_PerlinScale = EditorGUILayout.Slider("Perlin Scale", prefabBrush.m_PerlinScale, 0.001f, 0.999f);
             prefabBrush.m_Z = EditorGUILayout.IntField("Position Z", prefabBrush.m_Z);
-                
+
             EditorGUILayout.PropertyField(m_Prefabs, true);
             m_SerializedObject.ApplyModifiedPropertiesWithoutUndo();
         }
